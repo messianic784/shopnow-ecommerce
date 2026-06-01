@@ -36,7 +36,7 @@ async function loadWishlist() {
       return `
         <div class="product-card fade-in" id="wishcard-${product._id}">
           <div class="product-img-wrap">
-            <a href="/frontend/product-detail.html?id=${product._id}">
+            <a href="/product-detail.html?id=${product._id}">
               <img src="${getImageUrl(product.images?.[0]) || 'https://placehold.co/300x300?text=No+Image'}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/300x300?text=No+Image'">
             </a>
             ${!inStock ? '<div class="product-badges"><span class="badge-out">Out of Stock</span></div>' : ''}
@@ -44,7 +44,7 @@ async function loadWishlist() {
           <div class="product-info">
             <div class="product-category">${product.category || ''}</div>
             <h3 class="product-name">
-              <a href="/frontend/product-detail.html?id=${product._id}">${product.name}</a>
+              <a href="/product-detail.html?id=${product._id}">${product.name}</a>
             </h3>
             <div class="product-rating">
               <div class="stars">${renderStars(product.ratings || 0)}</div>

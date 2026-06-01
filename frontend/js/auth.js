@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Redirect if already logged in
   if (isLoggedIn()) {
     const params = new URLSearchParams(window.location.search);
-    window.location.href = params.get('redirect') || '/frontend/index.html';
-    return;
+    window.location.href = params.get('redirect') || '/index.html';return;
   }
 
   const page = document.body.dataset.page;
@@ -57,9 +56,9 @@ function initLogin() {
       const redirect = params.get('redirect');
 
       if (data.user.role === 'admin') {
-        window.location.href = redirect || '/frontend/admin/dashboard.html';
+        window.location.href = redirect || '/admin/dashboard.html';
       } else {
-        window.location.href = redirect || '/frontend/index.html';
+        window.location.href = redirect || '/index.html';
       }
     } catch (err) {
       showToast(err.message, 'error');
@@ -98,7 +97,7 @@ function initRegister() {
       localStorage.setItem('user', JSON.stringify(data.user));
 
       showToast('Account created successfully! Welcome!', 'success');
-      setTimeout(() => window.location.href = '/frontend/index.html', 1200);
+      setTimeout(() => window.location.href = '/index.html', 1200);
     } catch (err) {
       showToast(err.message, 'error');
       setLoading(submitBtn, false);

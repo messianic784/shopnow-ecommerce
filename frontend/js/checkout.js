@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const cart = getCart();
   if (cart.length === 0) {
-    window.location.href = '/frontend/cart.html';
+    window.location.href = '/cart.html';
     return;
   }
 
@@ -258,7 +258,7 @@ async function placeCODOrder(btn) {
     const data = await Orders.create(buildOrderData('Cash on Delivery'));
     clearCart();
     showToast('Order placed! Pay on delivery.', 'success');
-    setTimeout(() => window.location.href = `/frontend/orders.html?newOrder=${data.order._id}`, 1200);
+    setTimeout(() => window.location.href = `/orders.html?newOrder=${data.order._id}`, 1200);
   } catch (err) {
     showToast(err.message, 'error');
     setBtnLoading(btn, false);
@@ -326,7 +326,7 @@ async function processStripePayment(btn, method) {
 
     clearCart();
     showToast('Payment successful! Order confirmed.', 'success');
-    setTimeout(() => window.location.href = `/frontend/orders.html?newOrder=${orderRes.order._id}`, 1200);
+    setTimeout(() => window.location.href = `/orders.html?newOrder=${orderRes.order._id}`, 1200);
 
   } catch (err) {
     showToast(err.message, 'error');

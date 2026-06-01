@@ -77,7 +77,7 @@ function renderProductCard(product, wishlist = []) {
   return `
     <div class="product-card fade-in">
       <div class="product-img-wrap">
-        <a href="/frontend/product-detail.html?id=${product._id}">
+        <a href="/product-detail.html?id=${product._id}">
           <img src="${getImageUrl(product.images?.[0]) || 'https://placehold.co/300x300?text=No+Image'}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/300x300?text=No+Image'">
         </a>
         <div class="product-badges">
@@ -89,7 +89,7 @@ function renderProductCard(product, wishlist = []) {
           <button class="product-action-btn ${inWish ? 'active' : ''}" onclick="toggleWishlistItem('${product._id}', this)" title="${inWish ? 'Remove from wishlist' : 'Add to wishlist'}">
             <i class="${inWish ? 'fas' : 'far'} fa-heart"></i>
           </button>
-          <a href="/frontend/product-detail.html?id=${product._id}" class="product-action-btn" title="View details">
+          <a href="/product-detail.html?id=${product._id}" class="product-action-btn" title="View details">
             <i class="fas fa-eye"></i>
           </a>
         </div>
@@ -97,7 +97,7 @@ function renderProductCard(product, wishlist = []) {
       <div class="product-info">
         <div class="product-category">${product.category}</div>
         <h3 class="product-name">
-          <a href="/frontend/product-detail.html?id=${product._id}">${product.name}</a>
+          <a href="/product-detail.html?id=${product._id}">${product.name}</a>
         </h3>
         <div class="product-rating">
           <div class="stars">${renderStars(product.ratings || 0)}</div>
@@ -150,7 +150,7 @@ function applyFilter(key, value) {
 }
 
 function clearAllFilters() {
-  window.location.href = '/frontend/products.html';
+  window.location.href = '/products.html';
 }
 
 function initFilters() {

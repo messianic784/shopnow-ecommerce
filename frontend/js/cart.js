@@ -27,13 +27,13 @@ function renderCart() {
   container.innerHTML = cart.map(item => `
     <div class="cart-item fade-in" data-id="${item._id}">
       <div class="cart-item-img">
-        <a href="/frontend/product-detail.html?id=${item._id}">
+        <a href="/product-detail.html?id=${item._id}">
           <img src="${getImageUrl(item.image) || 'https://placehold.co/200x200?text=No+Image'}" alt="${item.name}" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'">
         </a>
       </div>
       <div class="cart-item-details">
         <div class="cart-item-name">
-          <a href="/frontend/product-detail.html?id=${item._id}">${item.name}</a>
+          <a href="/product-detail.html?id=${item._id}">${item.name}</a>
         </div>
         <div class="cart-item-meta">Unit price: ${formatPrice(item.price)}</div>
         <div class="cart-item-price">${formatPrice(item.price * item.quantity)}</div>
@@ -90,10 +90,10 @@ function renderSummary(cart) {
         <i class="fas fa-info-circle"></i> Add ${formatPrice(50 - subtotal)} more for free shipping!
       </div>
     ` : ''}
-    <a href="/frontend/checkout.html" class="btn btn-primary btn-full mt-2" style="margin-top:1rem;">
+    <a href="/checkout.html" class="btn btn-primary btn-full mt-2" style="margin-top:1rem;">
       <i class="fas fa-lock"></i> Proceed to Checkout
     </a>
-    <a href="/frontend/products.html" class="btn btn-ghost btn-full btn-sm" style="margin-top:0.5rem;">
+    <a href="/products.html" class="btn btn-ghost btn-full btn-sm" style="margin-top:0.5rem;">
       <i class="fas fa-arrow-left"></i> Continue Shopping
     </a>
   `;

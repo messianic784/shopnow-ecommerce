@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const productId = params.get('id');
 
   if (!productId) {
-    window.location.href = '/frontend/products.html';
+    window.location.href = '/products.html';
     return;
   }
 
@@ -32,7 +32,7 @@ async function loadProduct(id) {
         <i class="fas fa-exclamation-circle" style="font-size:4rem;color:var(--danger);margin-bottom:1rem;display:block"></i>
         <h2>Product Not Found</h2>
         <p style="color:var(--text-muted);margin:0.75rem 0 1.5rem">${err.message}</p>
-        <a href="/frontend/products.html" class="btn btn-primary">Browse Products</a>
+        <a href="/products.html" class="btn btn-primary">Browse Products</a>
       </div>`;
   }
 }
@@ -46,9 +46,9 @@ function renderProduct(p) {
   const bc = document.getElementById('breadcrumb');
   if (bc) {
     bc.innerHTML = `
-      <a href="/frontend/index.html">Home</a><span class="sep">/</span>
-      <a href="/frontend/products.html">Products</a><span class="sep">/</span>
-      <a href="/frontend/products.html?category=${p.category}">${p.category}</a><span class="sep">/</span>
+      <a href="/index.html">Home</a><span class="sep">/</span>
+      <a href="/products.html">Products</a><span class="sep">/</span>
+      <a href="/products.html?category=${p.category}">${p.category}</a><span class="sep">/</span>
       <span class="current">${p.name}</span>`;
   }
 
@@ -263,14 +263,14 @@ function renderProductCard(product) {
   return `
     <div class="product-card fade-in">
       <div class="product-img-wrap">
-        <a href="/frontend/product-detail.html?id=${product._id}">
+        <a href="/product-detail.html?id=${product._id}">
           <img src="${getImageUrl(product.images?.[0]) || 'https://placehold.co/300x300?text=No+Image'}" alt="${product.name}" loading="lazy">
         </a>
         ${discount > 0 ? '<div class="product-badges"><span class="badge-sale">-' + discount + '%</span></div>' : ''}
       </div>
       <div class="product-info">
         <div class="product-category">${product.category}</div>
-        <h3 class="product-name"><a href="/frontend/product-detail.html?id=${product._id}">${product.name}</a></h3>
+        <h3 class="product-name"><a href="/product-detail.html?id=${product._id}">${product.name}</a></h3>
         <div class="product-rating">
           <div class="stars">${renderStars(product.ratings || 0)}</div>
           <span class="rating-count">(${product.numReviews || 0})</span>
