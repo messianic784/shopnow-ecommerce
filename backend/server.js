@@ -25,7 +25,8 @@ const paymentRoutes = require('./routes/payment');
 
 const app = express();
 app.use(cors({
-  origin: '*', // Allows any frontend website to securely talk to your API
+  origin: 'https://messianic784-shopnow-ecommerce.vercel.app',
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
