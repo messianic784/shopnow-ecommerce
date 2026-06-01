@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:1.5rem;padding-bottom:3rem">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a><span class="sep">/</span>
+        <span class="current">Products</span>
+      </nav>
+
+      <!-- Active filters -->
+      <div class="filters-active" id="activeFilters"></div>
+
+      <div class="shop-layout">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar">
+          <!-- Category -->
+          <div class="filter-card">
+            <div class="filter-title">
+              Category
+              <button onclick="applyFilter('category','')">Clear</button>
+            </div>
+            <div class="filter-options" id="categoryFilters">
+              <div class="skeleton skeleton-text" style="height:14px;margin-bottom:8px"></div>
+              <div class="skeleton skeleton-text" style="height:14px;margin-bottom:8px"></div>
+              <div class="skeleton skeleton-text short" style="height:14px"></div>
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div class="filter-card">
+            <div class="filter-title">Price Range</div>
+            <div class="price-range-inputs">
+              <input type="number" id="minPrice" placeholder="Min $" min="0">
+              <span style="color:var(--text-muted)">—</span>
+              <input type="number" id="maxPrice" placeholder="Max $" min="0">
+            </div>
+            <button id="applyPrice" class="btn btn-primary btn-sm btn-full" style="margin-top:0.75rem">Apply Price</button>
+          </div>
+
+          <!-- Rating -->
+          <div class="filter-card">
+            <div class="filter-title">
+              Min Rating
+              <button onclick="applyFilter('rating','')">Clear</button>
+            </div>
+            <div class="filter-options">
+              <label class="filter-option"><input type="radio" name="ratingF" value="4" onchange="applyFilter('rating',this.value)"><span>⭐⭐⭐⭐ & up</span></label>
+              <label class="filter-option"><input type="radio" name="ratingF" value="3" onchange="applyFilter('rating',this.value)"><span>⭐⭐⭐ & up</span></label>
+              <label class="filter-option"><input type="radio" name="ratingF" value="2" onchange="applyFilter('rating',this.value)"><span>⭐⭐ & up</span></label>
+            </div>
+          </div>
+
+          <!-- Featured -->
+          <div class="filter-card">
+            <div class="filter-title">Special</div>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="checkbox" id="featuredFilter" onchange="applyFilter('featured', this.checked ? 'true' : '')">
+                <span>Featured Only</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Clear all -->
+          <button class="btn btn-ghost btn-full btn-sm" onclick="clearAllFilters()">
+            <i class="fas fa-times"></i> Clear All Filters
+          </button>
+        </aside>
+
+        <!-- Products Area -->
+        <div>
+          <!-- Sort Bar -->
+          <div class="sort-bar">
+            <span class="results-count" id="resultsCount">Loading products...</span>
+            <div style="display:flex;align-items:center;gap:0.75rem">
+              <label style="font-size:0.88rem;color:var(--text-muted);white-space:nowrap">Sort by:</label>
+              <select id="sortSelect" class="form-control" style="width:auto;padding:0.45rem 2rem 0.45rem 0.75rem;border-width:1px">
+                <option value="">Latest</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="rating">Best Rated</option>
+                <option value="popular">Most Popular</option>
+                <option value="newest">Newest First</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="product-grid" id="productsGrid"></div>
+
+          <!-- Pagination -->
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <button id="scrollTopBtn" style="position:fixed;bottom:1.5rem;right:1.5rem;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;border:none;box-shadow:0 4px 12px rgba(79,70,229,0.4);display:none;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;z-index:100"><i class="fas fa-arrow-up"></i></button>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

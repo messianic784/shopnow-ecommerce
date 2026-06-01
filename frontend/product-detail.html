@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:1.5rem;padding-bottom:4rem">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" id="breadcrumb">
+        <a href="index.html">Home</a><span class="sep">/</span>
+        <a href="products.html">Products</a><span class="sep">/</span>
+        <span class="current">Loading...</span>
+      </nav>
+
+      <div id="productDetail">
+        <!-- Product Detail Layout -->
+        <div class="product-detail">
+          <!-- Gallery -->
+          <div class="product-gallery">
+            <div class="gallery-main">
+              <img id="mainImage" src="https://placehold.co/500x500?text=Loading..." alt="Product">
+            </div>
+            <div class="gallery-thumbs" id="galleryThumbs"></div>
+          </div>
+
+          <!-- Info -->
+          <div class="product-detail-info">
+            <div class="product-detail-category" id="productCategory"></div>
+            <h1 class="product-detail-name" id="productName">Loading product...</h1>
+
+            <div class="product-detail-meta">
+              <div id="productRating" class="product-rating"></div>
+              <span id="productBrand" style="font-size:0.85rem;color:var(--text-muted)"></span>
+            </div>
+
+            <div class="product-detail-price" id="productPrice"></div>
+
+            <div class="stock-indicator" id="stockStatus"></div>
+
+            <p class="product-detail-desc" id="productDescription"></p>
+
+            <!-- Qty Control -->
+            <div style="margin-bottom:1.25rem">
+              <div class="form-label">Quantity</div>
+              <div class="qty-control" style="display:inline-flex">
+                <button class="qty-btn" id="qtyMinus" onclick="changeQty(-1)"><i class="fas fa-minus"></i></button>
+                <span class="qty-value" id="qtyValue">1</span>
+                <button class="qty-btn" id="qtyPlus" onclick="changeQty(1)"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="product-actions-row">
+              <button class="btn btn-primary btn-lg" style="flex:1" id="addToCartBtn" onclick="addProductToCart()">
+                <i class="fas fa-shopping-cart"></i> Add to Cart
+              </button>
+              <button class="btn btn-outline btn-lg" id="wishlistBtn" onclick="toggleWishlistItem(currentProduct?._id, this)">
+                <i class="far fa-heart"></i> Wishlist
+              </button>
+            </div>
+
+            <!-- Tags -->
+            <div class="product-tags" id="productTags"></div>
+
+            <!-- Trust badges -->
+            <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
+              <span style="font-size:0.8rem;color:var(--text-muted)"><i class="fas fa-shipping-fast" style="color:var(--success);margin-right:0.3rem"></i>Free shipping over $50</span>
+              <span style="font-size:0.8rem;color:var(--text-muted)"><i class="fas fa-undo" style="color:var(--primary);margin-right:0.3rem"></i>30-day returns</span>
+              <span style="font-size:0.8rem;color:var(--text-muted)"><i class="fas fa-shield-alt" style="color:var(--secondary);margin-right:0.3rem"></i>Secure checkout</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+          <h2 style="margin-bottom:1.5rem">Customer Reviews</h2>
+
+          <!-- Rating Summary -->
+          <div class="reviews-summary">
+            <div class="reviews-avg">
+              <div class="avg-number" id="avgRating">0.0</div>
+              <div class="avg-stars" id="avgStars">☆☆☆☆☆</div>
+              <div class="avg-count" id="avgCount">0 reviews</div>
+            </div>
+            <div class="rating-bars" id="ratingBars"></div>
+          </div>
+
+          <!-- Reviews List -->
+          <div id="reviewsList"></div>
+
+          <!-- Write Review -->
+          <div class="review-form">
+            <h4 style="margin-bottom:1rem">Write a Review</h4>
+            <form id="reviewForm">
+              <div class="form-group">
+                <div class="form-label">Your Rating</div>
+                <div class="star-picker">
+                  <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                  <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                  <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                  <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                  <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reviewComment">Your Review</label>
+                <textarea id="reviewComment" class="form-control" rows="4" placeholder="Share your experience with this product..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Review
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <section class="section" style="background:var(--surface-alt);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">More Like This</div>
+          <h2>Related Products</h2>
+        </div>
+        <div class="product-grid" id="relatedProducts"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <button id="scrollTopBtn" style="position:fixed;bottom:1.5rem;right:1.5rem;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;border:none;box-shadow:0 4px 12px rgba(79,70,229,0.4);display:none;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;z-index:100"><i class="fas fa-arrow-up"></i></button>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/product-detail.js"></script>
+</body>
+</html>

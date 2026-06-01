@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">
+        <h1>Shopping Cart</h1>
+        <button class="btn btn-ghost btn-sm" onclick="clearCartItems()"><i class="fas fa-trash"></i> Clear Cart</button>
+      </div>
+
+      <!-- Empty State -->
+      <div id="cartEmpty" class="cart-empty" style="display:none">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Your cart is empty</h3>
+        <p style="color:var(--text-muted);margin-top:0.5rem">Add some products to get started!</p>
+        <a href="products.html" class="btn btn-primary" style="margin-top:1.5rem"><i class="fas fa-shopping-bag"></i> Browse Products</a>
+      </div>
+
+      <!-- Cart with Items -->
+      <div class="cart-layout" id="cartWithItems" style="display:none">
+        <!-- Items List -->
+        <div>
+          <div class="cart-items-list" id="cartItemsList"></div>
+
+          <div style="margin-top:1.5rem;display:flex;gap:0.75rem;align-items:center">
+            <a href="products.html" class="btn btn-ghost btn-sm">
+              <i class="fas fa-arrow-left"></i> Continue Shopping
+            </a>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="cart-summary">
+          <h3><i class="fas fa-receipt" style="color:var(--primary);margin-right:0.4rem"></i> Order Summary</h3>
+          <div id="summaryContent"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Products - ShopNow Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body data-admin-page="products">
+  <div class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-shopping-bag"></i>
+        <div><span>ShopNow</span><small>Admin Panel</small></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">Main</div>
+        <a href="dashboard.html" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="products.html" class="sidebar-link active"><i class="fas fa-box-open"></i> Products</a>
+        <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> Users</a>
+        <div class="sidebar-section">Store</div>
+        <a href="../index.html" class="sidebar-link" target="_blank"><i class="fas fa-store"></i> View Store</a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar admin-user-avatar">A</div>
+        <div class="sidebar-user-info"><div class="name admin-user-name">Admin</div><div class="role">Administrator</div></div>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-main" id="adminMain">
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle-btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+          <div class="topbar-breadcrumb">Admin / <strong>Products</strong></div>
+        </div>
+        <div class="topbar-right">
+          <button class="dark-toggle sidebar-toggle-btn" id="adminDarkToggle"><i class="fas fa-moon"></i></button>
+          <button class="btn btn-primary btn-sm" id="addProductBtn"><i class="fas fa-plus"></i> Add Product</button>
+          <button class="btn btn-ghost btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div class="page-header-row">
+          <div class="page-header">
+            <h1>Products</h1>
+            <p id="productCount">Loading...</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>All Products</h3>
+            <div class="table-search">
+              <i class="fas fa-search"></i>
+              <input type="text" id="adminProductSearch" placeholder="Search products...">
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Rating</th>
+                  <th>Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody">
+                <tr><td colspan="7" style="text-align:center;padding:3rem"><div class="spinner" style="margin:0 auto"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
+            <div class="pagination" id="productsPagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Product Modal -->
+  <div class="modal-overlay modal-lg" id="productModalOverlay" onclick="if(event.target===this)closeProductModal()">
+    <div class="modal" style="max-width:700px;max-height:90vh;overflow-y:auto">
+      <div class="modal-header" style="position:sticky;top:0;background:var(--surface);z-index:1">
+        <h3 id="productModalTitle">Add New Product</h3>
+        <button class="modal-close" id="productModalClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm" enctype="multipart/form-data" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Product Name *</label>
+              <input type="text" id="pf_name" class="form-control" placeholder="iPhone 15 Pro" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Brand</label>
+              <input type="text" id="pf_brand" class="form-control" placeholder="Apple">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea id="pf_description" class="form-control" rows="4" placeholder="Detailed product description..." required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="pf_category" class="form-control" required>
+                <option value="">Select category</option>
+                <option>Electronics</option>
+                <option>Clothing</option>
+                <option>Books</option>
+                <option>Home & Garden</option>
+                <option>Sports</option>
+                <option>Toys</option>
+                <option>Beauty</option>
+                <option>Automotive</option>
+                <option>Food</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Stock *</label>
+              <input type="number" id="pf_stock" class="form-control" placeholder="100" min="0" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Price ($) *</label>
+              <input type="number" id="pf_price" class="form-control" placeholder="99.99" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Original Price ($) <span style="font-weight:400;color:var(--text-muted)">(for discount)</span></label>
+              <input type="number" id="pf_originalPrice" class="form-control" placeholder="129.99" min="0" step="0.01">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tags <span style="font-weight:400;color:var(--text-muted)">(comma separated)</span></label>
+            <input type="text" id="pf_tags" class="form-control" placeholder="electronics, smartphone, apple">
+          </div>
+
+          <!-- Image Upload -->
+          <div class="form-group">
+            <label class="form-label">Product Images</label>
+            <div class="upload-area" onclick="document.getElementById('pf_images').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Click or drag images here</p>
+              <span>JPEG, PNG, GIF, WebP up to 5MB each</span>
+              <input type="file" id="pf_images" multiple accept="image/*" style="display:none">
+            </div>
+            <div class="img-preview-grid" id="imagePreviewGrid"></div>
+          </div>
+
+          <!-- Options -->
+          <div style="display:flex;gap:2rem;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;font-size:0.9rem">
+              <input type="checkbox" id="pf_featured" style="accent-color:var(--primary);width:16px;height:16px">
+              <span>Featured Product</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;font-size:0.9rem">
+              <input type="checkbox" id="pf_isActive" checked style="accent-color:var(--success);width:16px;height:16px">
+              <span>Active / Visible</span>
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="position:sticky;bottom:0;background:var(--surface)">
+        <button type="button" class="btn btn-ghost" onclick="closeProductModal()">Cancel</button>
+        <button type="submit" form="productForm" id="productSubmitBtn" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Create Product
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

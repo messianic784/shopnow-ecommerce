@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+      <h1 style="margin-bottom:2rem"><i class="fas fa-heart" style="color:var(--danger);margin-right:0.5rem"></i> My Wishlist</h1>
+
+      <!-- Empty State -->
+      <div id="wishlistEmpty" class="cart-empty" style="display:none">
+        <i class="far fa-heart" style="color:var(--danger)"></i>
+        <h3>Your wishlist is empty</h3>
+        <p style="color:var(--text-muted);margin-top:0.5rem">Save products you love for later</p>
+        <a href="products.html" class="btn btn-primary" style="margin-top:1.5rem"><i class="fas fa-search"></i> Discover Products</a>
+      </div>
+
+      <!-- Wishlist Grid -->
+      <div class="wishlist-grid" id="wishlistGrid"></div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/wishlist.js"></script>
+</body>
+</html>

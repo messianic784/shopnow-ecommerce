@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Stripe.js must load from Stripe's CDN to stay PCI compliant -->
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+      <h1 style="margin-bottom:2rem"><i class="fas fa-lock" style="color:var(--primary);margin-right:0.5rem"></i> Secure Checkout</h1>
+
+      <form id="checkoutForm" class="checkout-layout" novalidate>
+        <!-- Left Column: Steps -->
+        <div>
+          <!-- Step 1: Contact Info -->
+          <div class="checkout-step">
+            <div class="checkout-step-header">
+              <div class="step-number">1</div>
+              <h3>Contact Information</h3>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name *</label>
+                <input type="text" id="firstName" class="form-control" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" id="lastName" class="form-control" placeholder="Doe">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Email *</label>
+                <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="tel" id="phone" class="form-control" placeholder="+1 234 567 8900">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Shipping -->
+          <div class="checkout-step">
+            <div class="checkout-step-header">
+              <div class="step-number">2</div>
+              <h3>Shipping Address</h3>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Street Address *</label>
+              <input type="text" id="street" class="form-control" placeholder="123 Main Street" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apartment, suite, etc.</label>
+              <input type="text" id="apartment" class="form-control" placeholder="Apt 4B (optional)">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">City *</label>
+                <input type="text" id="city" class="form-control" placeholder="New York" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">State / Province *</label>
+                <input type="text" id="state" class="form-control" placeholder="NY" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">ZIP / Postal Code *</label>
+                <input type="text" id="zipCode" class="form-control" placeholder="10001" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Country *</label>
+                <select id="country" class="form-control" required>
+                  <option value="">Select country</option>
+                  <option value="USA" selected>United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="India">India</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Payment -->
+          <div class="checkout-step">
+            <div class="checkout-step-header">
+              <div class="step-number">3</div>
+              <h3>Payment Method</h3>
+            </div>
+            <div class="payment-options">
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Credit Card" checked>
+                <i class="fas fa-credit-card"></i>
+                <label>Credit Card</label>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Debit Card">
+                <i class="fas fa-credit-card"></i>
+                <label>Debit Card</label>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery">
+                <i class="fas fa-money-bill-wave"></i>
+                <label>Cash on Delivery</label>
+              </label>
+            </div>
+            <!-- ── Stripe Card Element (Credit / Debit Card) ──────────────── -->
+            <div id="stripe-card-section" style="display:none;margin-top:1.25rem">
+              <div style="background:var(--surface-alt);border:2px solid var(--border);border-radius:var(--radius);padding:1rem 1.1rem">
+                <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.05em;display:flex;align-items:center;gap:0.4rem">
+                  <i class="fas fa-lock" style="color:var(--success)"></i> Secure Card Entry via Stripe
+                </div>
+                <!-- Stripe mounts its iframe here — never touches raw card numbers -->
+                <div id="stripe-card-element" style="padding:0.35rem 0"></div>
+                <div id="card-errors" style="color:var(--danger);font-size:0.82rem;margin-top:0.5rem;min-height:1.2em"></div>
+              </div>
+              <div style="display:flex;gap:1rem;margin-top:0.6rem;flex-wrap:wrap">
+                <span style="font-size:0.75rem;color:var(--text-muted)"><i class="fas fa-shield-alt" style="color:var(--success)"></i> 256-bit SSL encrypted</span>
+                <span style="font-size:0.75rem;color:var(--text-muted)"><i class="fab fa-stripe" style="color:#635bff"></i> Powered by Stripe</span>
+              </div>
+              <div id="stripe-test-hint" style="margin-top:0.6rem;padding:0.6rem 0.85rem;background:rgba(99,91,255,0.07);border:1px solid rgba(99,91,255,0.2);border-radius:var(--radius);font-size:0.78rem;color:var(--text-muted)">
+                <strong style="color:var(--primary)">Test mode:</strong> Use card <code style="font-size:0.8rem;background:var(--surface-alt);padding:0.1rem 0.35rem;border-radius:4px">4242 4242 4242 4242</code> · any future date · any 3-digit CVC
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:1rem">
+              <label class="form-label">Order Notes (Optional)</label>
+              <textarea id="orderNotes" class="form-control" rows="3" placeholder="Special delivery instructions or notes..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div>
+          <div class="cart-summary" style="position:sticky;top:calc(var(--nav-h) + 1rem)">
+            <h3 style="margin-bottom:1.25rem"><i class="fas fa-shopping-bag" style="color:var(--primary);margin-right:0.4rem"></i> Order Review</h3>
+
+            <!-- Order items -->
+            <div id="orderReviewItems" style="max-height:280px;overflow-y:auto;margin-bottom:1rem"></div>
+
+            <!-- Summary -->
+            <div id="checkoutSummary"></div>
+
+            <!-- Place Order Button -->
+            <button type="submit" id="placeOrderBtn" class="btn btn-primary btn-full btn-lg" style="margin-top:1.25rem">
+              <i class="fas fa-lock"></i> Place Order
+            </button>
+            <p style="text-align:center;font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem">
+              <i class="fas fa-shield-alt"></i> Your payment is SSL encrypted and secure
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

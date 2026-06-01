@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body data-page="login">
+  <header class="navbar" id="navbar"></header>
+
+  <main class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <i class="fas fa-shopping-bag"></i>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your ShopNow account</p>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <div class="input-group">
+            <i class="fas fa-envelope input-group-icon"></i>
+            <input type="email" id="email" class="form-control" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password" style="display:flex;justify-content:space-between">
+            Password
+            <a href="#" style="font-weight:500;font-size:0.82rem">Forgot password?</a>
+          </label>
+          <div class="input-group" style="position:relative">
+            <i class="fas fa-lock input-group-icon"></i>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="toggle-password" data-target="password" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0">
+              <i class="fas fa-eye-slash"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html" style="font-weight:600">Create one</a>
+      </div>
+
+      <!-- Demo credentials — hidden by default, reveal with Ctrl+Shift+D -->
+      <div id="demoCredentialsBox" style="display:none;margin-top:1.25rem;padding:0.85rem;background:var(--surface-alt);border-radius:var(--radius);border:1px solid var(--border)">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.05em">Demo Credentials</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <button onclick="fillDemo('admin@ecommer.com','admin123')" class="btn btn-ghost btn-sm" style="justify-content:flex-start;font-size:0.8rem">
+            <i class="fas fa-shield-alt" style="color:var(--primary)"></i> Admin: admin@ecommer.com / admin123
+          </button>
+          <button onclick="fillDemo('jane@example.com','user123')" class="btn btn-ghost btn-sm" style="justify-content:flex-start;font-size:0.8rem">
+            <i class="fas fa-user" style="color:var(--success)"></i> User: jane@example.com / user123
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function fillDemo(email, password) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = password;
+    }
+
+    // Ctrl + Shift + D toggles the demo credentials box
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        e.preventDefault();
+        const box = document.getElementById('demoCredentialsBox');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+  </script>
+</body>
+</html>

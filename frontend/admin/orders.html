@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Orders - ShopNow Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body data-admin-page="orders">
+  <div class="admin-body">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-shopping-bag"></i>
+        <div><span>ShopNow</span><small>Admin Panel</small></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">Main</div>
+        <a href="dashboard.html" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="products.html" class="sidebar-link"><i class="fas fa-box-open"></i> Products</a>
+        <a href="orders.html" class="sidebar-link active"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> Users</a>
+        <div class="sidebar-section">Store</div>
+        <a href="../index.html" class="sidebar-link" target="_blank"><i class="fas fa-store"></i> View Store</a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar admin-user-avatar">A</div>
+        <div class="sidebar-user-info"><div class="name admin-user-name">Admin</div><div class="role">Administrator</div></div>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-main" id="adminMain">
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle-btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+          <div class="topbar-breadcrumb">Admin / <strong>Orders</strong></div>
+        </div>
+        <div class="topbar-right">
+          <button class="dark-toggle sidebar-toggle-btn" id="adminDarkToggle"><i class="fas fa-moon"></i></button>
+          <select id="orderStatusFilter" class="form-control" style="width:auto;padding:0.4rem 2rem 0.4rem 0.75rem;border-width:1px;font-size:0.88rem">
+            <option value="">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div class="page-header">
+          <h1>Orders</h1>
+          <p id="orderCount">Loading...</p>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>All Orders</h3>
+            <div style="font-size:0.82rem;color:var(--text-muted)">Change status in the dropdown to update order</div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Date</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Payment</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr><td colspan="7" style="text-align:center;padding:3rem"><div class="spinner" style="margin:0 auto"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
+            <div class="pagination" id="ordersPagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

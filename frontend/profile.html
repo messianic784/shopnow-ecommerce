@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - ShopNow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <main>
+    <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+      <h1 style="margin-bottom:2rem">My Account</h1>
+
+      <div class="profile-layout">
+        <!-- Sidebar -->
+        <div class="profile-sidebar">
+          <div class="profile-card">
+            <div class="profile-avatar-large"><span class="profile-avatar-letter">?</span></div>
+            <div class="profile-name" id="profileName">Loading...</div>
+            <div class="profile-email" id="profileEmail"></div>
+            <div class="profile-stats">
+              <div class="profile-stat">
+                <strong id="wishlistCount">0</strong>
+                <span>Wishlist</span>
+              </div>
+            </div>
+          </div>
+
+          <nav class="profile-nav">
+            <a href="#" data-tab="profile" class="active"><i class="fas fa-user"></i> Profile Info</a>
+            <a href="#" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address</a>
+            <a href="#" data-tab="security"><i class="fas fa-lock"></i> Security</a>
+            <a href="orders.html"><i class="fas fa-box"></i> My Orders</a>
+            <a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
+            <a href="#" onclick="logout();return false;" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </nav>
+        </div>
+
+        <!-- Content Panels -->
+        <div>
+          <!-- Profile Info Tab -->
+          <div data-panel="profile">
+            <div class="card">
+              <div class="card-header">Personal Information</div>
+              <div class="card-body">
+                <form id="profileForm">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Full Name</label>
+                      <input type="text" id="profileFormName" class="form-control" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email Address</label>
+                      <input type="email" id="profileFormEmail" class="form-control" placeholder="your@email.com">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" id="profileFormPhone" class="form-control" placeholder="+1 234 567 8900">
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Changes
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address Tab -->
+          <div data-panel="address" style="display:none">
+            <div class="card">
+              <div class="card-header">Shipping Address</div>
+              <div class="card-body">
+                <form id="profileForm" style="display:contents">
+                  <div class="form-group">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" id="profileStreet" class="form-control" placeholder="123 Main Street">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" id="profileCity" class="form-control" placeholder="New York">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <input type="text" id="profileState" class="form-control" placeholder="NY">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">ZIP Code</label>
+                      <input type="text" id="profileZipCode" class="form-control" placeholder="10001">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Country</label>
+                      <input type="text" id="profileCountry" class="form-control" placeholder="USA">
+                    </div>
+                  </div>
+                </form>
+                <button class="btn btn-primary" onclick="document.getElementById('profileForm').requestSubmit()">
+                  <i class="fas fa-save"></i> Save Address
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security Tab -->
+          <div data-panel="security" style="display:none">
+            <div class="card">
+              <div class="card-header">Change Password</div>
+              <div class="card-body">
+                <form id="passwordForm">
+                  <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" id="currentPassword" class="form-control" placeholder="••••••••">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="Min 6 characters">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" class="form-control" placeholder="Repeat new password">
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-key"></i> Update Password
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

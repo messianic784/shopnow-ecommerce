@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - ShopNow</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body data-admin-page="dashboard">
+  <div class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-shopping-bag"></i>
+        <div><span>ShopNow</span><small>Admin Panel</small></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">Main</div>
+        <a href="dashboard.html" class="sidebar-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="products.html" class="sidebar-link"><i class="fas fa-box-open"></i> Products</a>
+        <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> Users</a>
+        <div class="sidebar-section">Store</div>
+        <a href="../index.html" class="sidebar-link" target="_blank"><i class="fas fa-store"></i> View Store</a>
+        <a href="../products.html" class="sidebar-link" target="_blank"><i class="fas fa-search"></i> Browse Products</a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar admin-user-avatar">A</div>
+        <div class="sidebar-user-info">
+          <div class="name admin-user-name">Admin</div>
+          <div class="role">Administrator</div>
+        </div>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <div class="admin-main" id="adminMain">
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle-btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+          <div class="topbar-breadcrumb">Admin / <strong>Dashboard</strong></div>
+        </div>
+        <div class="topbar-right">
+          <button class="dark-toggle sidebar-toggle-btn" id="adminDarkToggle"><i class="fas fa-moon"></i></button>
+          <a href="../index.html" class="btn btn-outline btn-sm" target="_blank"><i class="fas fa-external-link-alt"></i> Store</a>
+          <button class="btn btn-ghost btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="admin-content">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <p>Welcome back! Here's what's happening with your store.</p>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="statUsers">—</div>
+              <div class="stat-label">Total Customers</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple"><i class="fas fa-box"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="statProducts">—</div>
+              <div class="stat-label">Active Products</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i class="fas fa-shopping-cart"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="statOrders">—</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fas fa-dollar-sign"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="statRevenue">—</div>
+              <div class="stat-label">Total Revenue</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-bar" style="color:var(--primary);margin-right:0.4rem"></i> Monthly Sales</h3>
+            <div id="salesChart"><div class="loading-overlay" style="padding:3rem"><div class="spinner"></div></div></div>
+          </div>
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-pie" style="color:var(--secondary);margin-right:0.4rem"></i> Order Status</h3>
+            <div id="orderStatusChart"><div class="loading-overlay" style="padding:3rem"><div class="spinner"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Tables Row -->
+        <div class="two-col-grid">
+          <!-- Recent Orders -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <h3>Recent Orders</h3>
+              <a href="orders.html" class="btn btn-outline btn-sm">View All</a>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersTbody">
+                  <tr><td colspan="5" style="text-align:center;padding:2rem"><div class="spinner" style="margin:0 auto"></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Top Products -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <h3>Top Products</h3>
+              <a href="products.html" class="btn btn-outline btn-sm">View All</a>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Product</th>
+                    <th>Sold</th>
+                  </tr>
+                </thead>
+                <tbody id="topProductsTbody">
+                  <tr><td colspan="3" style="text-align:center;padding:2rem"><div class="spinner" style="margin:0 auto"></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
