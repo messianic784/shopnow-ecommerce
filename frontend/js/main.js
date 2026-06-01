@@ -52,12 +52,12 @@ function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
   localStorage.removeItem('cart');
-  window.location.href = '/frontend/login.html';
+  window.location.href = '/login.html';
 }
 
 function requireAuth() {
   if (!isLoggedIn()) {
-    window.location.href = `/frontend/login.html?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`;
+    window.location.href = `/login.html?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`;
     return false;
   }
   return true;
@@ -65,7 +65,7 @@ function requireAuth() {
 
 function requireAdmin() {
   if (!isLoggedIn() || !isAdmin()) {
-    window.location.href = '/frontend/login.html?redirect=/frontend/admin/dashboard.html';
+    window.location.href = '/login.html?redirect=/admin/dashboard.html';
     return false;
   }
   return true;
@@ -289,7 +289,7 @@ function buildNavbar() {
 
   nav.innerHTML = `
     <div class="container">
-      <a href="/frontend/index.html" class="nav-brand">
+      <a href="/index.html" class="nav-brand">
         <i class="fas fa-shopping-bag"></i>
         <span>ShopNow</span>
       </a>
@@ -305,12 +305,12 @@ function buildNavbar() {
           <i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>
         </button>
 
-        <a href="/frontend/wishlist.html" class="nav-btn" title="Wishlist">
+        <a href="/wishlist.html" class="nav-btn" title="Wishlist">
           <i class="far fa-heart"></i>
           <span class="badge wishlist-badge" style="display:${wishCount > 0 ? 'flex' : 'none'}">${wishCount}</span>
         </a>
 
-        <a href="/frontend/cart.html" class="nav-btn" title="Cart">
+        <a href="/cart.html" class="nav-btn" title="Cart">
           <i class="fas fa-shopping-cart"></i>
           <span class="badge cart-badge" style="display:${cartCount > 0 ? 'flex' : 'none'}">${cartCount}</span>
         </a>
@@ -323,17 +323,17 @@ function buildNavbar() {
               <i class="fas fa-chevron-down" style="font-size:0.7rem;opacity:0.7"></i>
             </button>
             <div class="nav-dropdown" id="navDropdown">
-              ${user.role === 'admin' ? `<a href="/frontend/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> Admin Panel</a><hr class="divider">` : ''}
-              <a href="/frontend/profile.html"><i class="fas fa-user"></i> My Profile</a>
-              <a href="/frontend/orders.html"><i class="fas fa-box"></i> My Orders</a>
-              <a href="/frontend/wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
+              ${user.role === 'admin' ? `<a href="/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> Admin Panel</a><hr class="divider">` : ''}
+              <a href="/profile.html"><i class="fas fa-user"></i> My Profile</a>
+              <a href="/orders.html"><i class="fas fa-box"></i> My Orders</a>
+              <a href="/wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
               <hr class="divider">
               <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
           </div>
         ` : `
-          <a href="/frontend/login.html" class="btn btn-outline btn-sm">Login</a>
-          <a href="/frontend/register.html" class="btn btn-primary btn-sm btn-text">Sign Up</a>
+          <a href="/login.html" class="btn btn-outline btn-sm">Login</a>
+          <a href="/register.html" class="btn btn-primary btn-sm btn-text">Sign Up</a>
         `}
       </nav>
 
@@ -353,7 +353,7 @@ function buildNavbar() {
 
   function doSearch() {
     const q = navSearch.value.trim();
-    if (q) window.location.href = `/frontend/products.html?search=${encodeURIComponent(q)}`;
+    if (q) window.location.href = `/products.html?search=${encodeURIComponent(q)}`;
   }
 
   if (navSearchBtn) navSearchBtn.addEventListener('click', doSearch);
@@ -400,20 +400,20 @@ function buildFooter() {
         <div class="footer-col">
           <h4>Shop</h4>
           <ul>
-            <li><a href="/frontend/products.html">All Products</a></li>
-            <li><a href="/frontend/products.html?category=Electronics">Electronics</a></li>
-            <li><a href="/frontend/products.html?category=Clothing">Clothing</a></li>
-            <li><a href="/frontend/products.html?category=Books">Books</a></li>
-            <li><a href="/frontend/products.html?featured=true">Featured</a></li>
+            <li><a href="/products.html">All Products</a></li>
+            <li><a href="/products.html?category=Electronics">Electronics</a></li>
+            <li><a href="/products.html?category=Clothing">Clothing</a></li>
+            <li><a href="/products.html?category=Books">Books</a></li>
+            <li><a href="/products.html?featured=true">Featured</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Account</h4>
           <ul>
-            <li><a href="/frontend/profile.html">My Profile</a></li>
-            <li><a href="/frontend/orders.html">My Orders</a></li>
-            <li><a href="/frontend/wishlist.html">Wishlist</a></li>
-            <li><a href="/frontend/cart.html">Shopping Cart</a></li>
+            <li><a href="/profile.html">My Profile</a></li>
+            <li><a href="/orders.html">My Orders</a></li>
+            <li><a href="/wishlist.html">Wishlist</a></li>
+            <li><a href="/cart.html">Shopping Cart</a></li>
           </ul>
         </div>
         <div class="footer-col">
