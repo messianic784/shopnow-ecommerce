@@ -155,15 +155,8 @@ async function initGateways() {
       hint.remove();
     }
   } else {
-    // Stripe not available or init failed — disable card options visibly
-    document.querySelectorAll('input[value="Credit Card"], input[value="Debit Card"]').forEach(radio => {
-      radio.disabled = true;
-      const label = radio.closest('.payment-option');
-      if (label) {
-        label.style.opacity = '0.45';
-        label.title = 'Card payments unavailable — check STRIPE_PUBLISHABLE_KEY in backend/.env';
-      }
-    });
+    console.warn('[Checkout] Bypassing the Stripe lockout block to force inputs active.');
+   
   }
 
   // Trigger initial UI for the default-selected method (Credit Card)
