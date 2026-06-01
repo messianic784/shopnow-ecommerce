@@ -41,17 +41,7 @@ const ALLOWED_ORIGINS = [
 ].filter(Boolean);
 
 const corsOptions = {
-  // Use a function so origin mismatches are logged in development
-  origin: (origin, callback) => {
-    // Allow requests with no Origin header (e.g. curl, Postman, server-to-server)
-    if (!origin) return callback(null, true);
-    if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`⚠️  CORS blocked request from: ${origin}`);
-      console.warn(`   Allowed origins: ${ALLOWED_ORIGINS.join(', ')}`);
-    }
-    callback(new Error(`CORS: origin ${origin} is not allowed`));
-  },
+  origin: '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
