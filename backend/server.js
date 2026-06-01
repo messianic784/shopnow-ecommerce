@@ -24,7 +24,11 @@ const adminRoutes = require('./routes/admin');
 const paymentRoutes = require('./routes/payment');
 
 const app = express();
-
+app.use(cors({
+  origin: '*', // Allows any frontend website to securely talk to your API
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 connectDB();
 
 const ALLOWED_ORIGINS = [
