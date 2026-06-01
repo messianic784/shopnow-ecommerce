@@ -2,9 +2,8 @@
    API Utility - All backend communication goes through here
 ═══════════════════════════════════════════════════════════ */
 
-const API_BASE = 'http://localhost:5000/api';
-const SERVER_URL = 'http://localhost:5000';
-
+const API_BASE = 'https://shopnow-ecommerce-coral.vercel.app/api';
+const SERVER_URL = 'https://shopnow-ecommerce-coral.vercel.app';
 // Resolve any image path to a full URL.
 // - Relative paths (/uploads/...) are served by the Express backend, not the
 //   frontend dev server, so we must prepend SERVER_URL.
